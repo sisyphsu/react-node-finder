@@ -3,6 +3,9 @@
  */
 import React from 'react';
 
+// This kind of Componenet need be ignored, works with react-dom and react-native.
+const IGNORED_COMPONENTS = ['StatelessComponent', 'Constructor', 'AnimatedComponent']
+
 /**
  * search first parent in node-tree structure.
  * @param node  search from
@@ -10,26 +13,13 @@ import React from 'react';
  * @returns {Array || null}
  */
 export function findParent(node, pType) {
-    let instance = node._reactInternalInstance;
-    let owner = node._reactInternalInstance._currentElement._owner;
-    let parentNode = instance._hostParent;
-    // location real parent node based on owner
-    while (parentNode._currentElement._owner._mountOrder != owner._mountOrder) {
-        parentNode = parentNode._currentElement._owner;
-        if (parentNode._currentElement._owner._mountOrder < owner._mountOrder) {
-            parentNode = null;
-            break;
-        }
+    let parentNode = _getParent(node);
+    let instance = _getValidComponent(parentNode);
+    while (parentNode && (!instance || (pType && !(instance instanceof pType)))) {
+        parentNode = _getParent(node);
+        instance = _getValidComponent(parentNode);
     }
-    parentNode = parentNode || owner;
-    parentNode = parentNode && parentNode._instance;
-    // based on parentType
-    if (pType && parentNode) {
-        while (parentNode && !(parentNode instanceof pType)) {
-            parentNode = findParent(parentNode, pType);
-        }
-    }
-    return parentNode;
+    return instance;
 }
 
 /**
@@ -40,12 +30,13 @@ export function findParent(node, pType) {
  */
 export function findAllParent(node, pType) {
     let parents = [];
-    let parent = findParent(node, pType);
+    let parent = _getParent(node);
     while (parent) {
         parents.push(parent);
-        parent = findParent(parent, pType);
+        parent = _getParent(parent);
     }
-    return parents.length ? parents : null;
+    parents = _filterComponent(parents, pType);
+    return parents ? parents.reverse() : null;
 }
 
 /**
@@ -56,25 +47,25 @@ export function findAllParent(node, pType) {
  */
 export function findAllChildren(node, childType) {
     let children = _getAllChildren(node);
-    let result = [];
-    children.forEach(function (item) {
-        let name = item.constructor.name;
-        let instance = null;
-        if (name == 'ReactCompositeComponentWrapper') {
-            instance = item._instance;
-            if (instance && instance.constructor.name == 'StatelessComponent') {
-                instance = null;
-            }
-        } else if (['ReactDOMComponent'].indexOf(name) >= 0) {
-            // ignore
-        } else {
-            console.warn('unknown children: ', item);
+    return _filterComponent(children, childType);
+}
+
+// get parent
+function _getParent(node) {
+    if (node instanceof React.Component) {
+        node = node._reactInternalInstance;
+    }
+    let owner = node && node._currentElement._owner;
+    let parentNode = node && node._hostParent;
+    // location real parent node based on owner
+    while (owner && parentNode && parentNode._currentElement._owner._mountOrder != owner._mountOrder) {
+        parentNode = parentNode._currentElement._owner;
+        if (parentNode._currentElement._owner._mountOrder < owner._mountOrder) {
+            parentNode = null;
+            break;
         }
-        if (instance && (!childType || (instance instanceof childType))) {
-            result.push(instance);
-        }
-    });
-    return result;
+    }
+    return parentNode || owner;
 }
 
 // get all children Component by ricursion
@@ -98,4 +89,33 @@ function _getAllChildren(node) {
         }
     }
     return children;
+}
+
+// filter the component that we real need.
+function _filterComponent(nodes, childType) {
+    let result = null;
+    if (nodes && nodes.length) {
+        let filterResult = [];
+        nodes.forEach(function (item) {
+            let instance = _getValidComponent(item);
+            if (instance && (!childType || (instance instanceof childType))) {
+                filterResult.push(instance);
+            }
+        });
+        if (filterResult.length) {
+            result = filterResult;
+        }
+    }
+    return result;
+}
+
+// get valid component and ignore common component, if node is ReactCompositeComponentWrapper then get _instance.
+function _getValidComponent(node) {
+    if (node.constructor.name == 'ReactCompositeComponentWrapper') {
+        node = node._instance;
+    }
+    if (node && IGNORED_COMPONENTS.indexOf(node.constructor.name) >= 0) {
+        node = null;
+    }
+    return node;
 }
