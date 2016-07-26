@@ -10,7 +10,7 @@ I have checked the new `Context-Tech`, honestly, It is weak too! You have to def
 
 In many issues, I saw many people asked **_"How can I find parent/child node, etc"_**. Others would tell him _**"You use it wrong, You didn't need find, etc"**_, I was mad about those answer.
   
-SO, I make this module, you guys can use `findChildren/findParent/etc` in React would, just like other grown-up would.
+So, I make this module, you guys can use `findChildren/findParent/etc` in React would, just like other grown-up would.
 
 ## Usage
 
