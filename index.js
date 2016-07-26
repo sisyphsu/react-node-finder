@@ -9,7 +9,7 @@ import React from 'react';
  * @param pType parent type
  * @returns {Array || null}
  */
-function findParent(node, pType) {
+export function findParent(node, pType) {
     let instance = node._reactInternalInstance;
     let owner = node._reactInternalInstance._currentElement._owner;
     let parentNode = instance._hostParent;
@@ -38,7 +38,7 @@ function findParent(node, pType) {
  * @param pType parent type
  * @returns {Array || null}
  */
-function findAllParent(node, pType) {
+export function findAllParent(node, pType) {
     let parents = [];
     let parent = findParent(node, pType);
     while (parent) {
@@ -54,7 +54,7 @@ function findAllParent(node, pType) {
  * @param childType child type
  * @returns {Array || null}
  */
-function findAllChildren(node, childType) {
+export function findAllChildren(node, childType) {
     let children = _getAllChildren(node);
     let result = [];
     children.forEach(function (item) {
@@ -65,7 +65,7 @@ function findAllChildren(node, childType) {
             if (instance && instance.constructor.name == 'StatelessComponent') {
                 instance = null;
             }
-        } else if (['StatelessComponent', 'ReactDOMComponent'].indexOf(name) >= 0) {
+        } else if (['ReactDOMComponent'].indexOf(name) >= 0) {
             // ignore
         } else {
             console.warn('unknown children: ', item);
