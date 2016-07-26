@@ -7,7 +7,6 @@ Extend tree operation of React Component, such as findChildren/findParent etc
 I love React, but the `Communication between Components` is too weak, maybe Facebook guys just want us to repeat props/state as much as we can.
 
 I have checked the new `Context-Tech`, honestly, It is weak too! You have to define `childContextTypes` and `getChildContext` in OWNER, and define `contextTypes` in every OWNEE. Why make us repeat it again?  
-
 The worst is, `Context` only works in `Owner-Ownee` structure, doesn't work in `Parent-Children` structure. It is so stupid!  
 
 In many issues, I saw many people asked **_"How can I find parent/child node, etc"_**. Others would tell him _**"You use it wrong, You didn't need find, etc"**_, I was mad about those answer.
