@@ -75,7 +75,28 @@ Above 3-lines code done really much work, like:
 + Auto validate value, before submit, `Form` could notice `Input` to validate itself.
 + Auto response Submit's onClick, `Submit` could notice `Form` to do submit when it is clicked.
 
-You just need write `Form`, `Input`, `Submit` one-time, and use it every, no more onChange, no more onClick, no more repeat.
+You just need write `Form`, `Input`, `Submit` one time, and use it every, no more onChange, no more onClick, no more repeat.
+
+### Smart Callback
+
+If your application has structure like this:
+
+```js
+import * as finder from 'react-node-finder';
+(<Application>
+    <Header>
+        <ExitBtn onClick={()=>{
+            finder.findParent(this, Application).doExit();
+        }}></ExitBtn>
+    </Header>
+    <Body>
+        <SideMenu></SideMenu>
+        <Main></Main>
+    </Body>
+</Application>)
+```
+
+This example is a bad case, but if component tree is too deep, what can you do? The best is to redesign application's code structure, but you can alse do some trick like above.
 
 ## Notice
 
