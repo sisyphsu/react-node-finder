@@ -1,12 +1,9 @@
 {
-  "name": "react-node-extend",
+  "name": "react-node-finder",
   "version": "0.0.1",
   "description": "Extend tree operation of React Component, such as findChildren/findParent etc ",
   "main": "index.js",
   "dependencies": {
-    "babel-jest": "^13.2.2",
-    "babel-polyfill": "^6.9.1",
-    "jest-cli": "^13.2.3",
     "react": "^15.2.1",
     "react-native": "^0.30.0"
   },
