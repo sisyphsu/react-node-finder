@@ -2,6 +2,14 @@
 
 Extend tree operation of React Component, such as findChildren/findParent etc
 
+## Support
+
+This module used lots of **private attribute** of React.
+
+so **This module can only works on some specific version, but I will do my best to support all newest React**.
+
+- [x] react (15.2.1) + react-native (0.30.0)
+
 ## Foreword
 
 I love React, but the `Communication between Components` is too weak. For ordinary develepment , it's ok. But if you want to do something flexible, like plugin/framework/etc, it's almost impossible. Maybe Facebook guys just want us to repeat props/state as much as we can, maybe they doesn't want us to build smart-plugin based on React. (；′⌒`)
