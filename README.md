@@ -12,16 +12,16 @@ so **This module can only works on some specific version, but I will do my best 
 
 ## Foreword
 
-I love React, but the `Communication between Components` is too weak. For ordinary develepment , it's ok. But if you want to do something flexible, like plugin/framework/etc, it's almost impossible. Maybe Facebook guys just want us to repeat props/state as much as we can, maybe they doesn't want us to build smart-plugin based on React. (；′⌒`)
+I love React, but the `Communication between Components` is too weak. For ordinary development , it's ok. But if you want to do something flexible, like plugin/framework/etc, it's almost impossible. Maybe Facebook guys just want us to repeat props/state as much as we can, maybe they doesn't want us to build smart-plugin based on React. (；′⌒`)
 
-I have checked the new `Context-Tech`. Honestly, It is weak too! You have to define `childContextTypes` and `getChildContext` in owner, this is acceptable. But why do I have to define `contextTypes` in Ownee-Compoenent again and again and again? Why do you force us to repeat and repeat and repeat ? **The Worst Is**, `Context` only works in `Owner-Ownee` structure, it doesn't work in `Parent-Children` structure, Is it stupid ?
+I have checked the new `Context-Tech`. Honestly, It is weak too! You have to define `childContextTypes` and `getChildContext` in owner, maybe this is acceptable. But why do I have to define `contextTypes` in Ownee-Compoenent again and again and again? Why do you force us to repeat and repeat and repeat ? **The Worst Is**, `Context` only works in `Owner-Ownee` structure, it doesn't work in `Parent-Children` structure, Is it stupid ?
 
-In many issues, I saw many people asked **_"How can I find parent/child node, etc"_**.  Then some guy would answer him _**"You use it wrong, You didn't need find, Use props/state, etc"**_.
+In many issues, I saw many people asked **_"How can I find parent/child node, etc"_**.  Then some other guys would answer him _**"You use it wrong, You didn't need find, Use props/state, etc"**_.
 
-Why we must use props/state? Why we have to accept the `bad design` of React? It is not freedom!
+Why we must use props/state in any case? It is not freedom!
   
 So, I made this module, let you can use `findChildren/findParent/etc` in React would.
-Just like in other Grown-Up would.
+Just like in other Grown-Up would, be free.
 
 ## Usage
 
@@ -71,6 +71,7 @@ If there are lots of form in your application, then you will repeat lots like th
 ```
 
 Use `react-node-finder`, you can make the code above real simple, just like:
+
 ```js
 <Form onSubmit={(params)=>{/* do submit request */}}>
     <Input name='username' pattern={/^\w{2,20}$/}/>
