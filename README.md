@@ -1,2 +1,2 @@
 # react-node-extend
-Extend the tree operation of React Component, such as gentChildren/getParent etc
+Extend tree operation of React Component, such as findChildren/findParent etc
