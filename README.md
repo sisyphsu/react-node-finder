@@ -79,7 +79,7 @@ You just need write `Form`, `Input`, `Submit` one time, and use it every, no mor
 
 ### Smart Callback
 
-If your application has structure like this:
+You can do some trick like this:
 
 ```js
 import * as finder from 'react-node-finder';
@@ -96,7 +96,9 @@ import * as finder from 'react-node-finder';
 </Application>)
 ```
 
-This example is a bad case, but if component tree is too deep, what can you do? The best is to redesign application's code structure, but you can alse do some trick like above.
+This example is a bad case, but if component tree is too deep, and you need the deepest component to callback root component, what can you do? 
+
+Maybe best option is to redesign application's structure, but you can alse do some trick like above.
 
 ## Notice
 
