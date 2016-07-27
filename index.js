@@ -16,7 +16,7 @@ export function findParent(node, pType) {
     let parentNode = _getParent(node);
     let instance = _getValidComponent(parentNode);
     while (parentNode && (!instance || (pType && !(instance instanceof pType)))) {
-        parentNode = _getParent(node);
+        parentNode = _getParent(parentNode);
         instance = _getValidComponent(parentNode);
     }
     return instance;
@@ -111,7 +111,7 @@ function _filterComponent(nodes, childType) {
 
 // get valid component and ignore common component, if node is ReactCompositeComponentWrapper then get _instance.
 function _getValidComponent(node) {
-    if (node.constructor.name == 'ReactCompositeComponentWrapper') {
+    if (node && node.constructor.name == 'ReactCompositeComponentWrapper') {
         node = node._instance;
     }
     if (node && IGNORED_COMPONENTS.indexOf(node.constructor.name) >= 0) {
